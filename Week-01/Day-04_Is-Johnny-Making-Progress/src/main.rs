@@ -1,16 +1,15 @@
 fn progress_days(miles_record: &[i32]) -> i32 {
-    let mut days: i32 = 0;
-    let mut i: usize = 0;
-    while i < miles_record.len() {
-        if i + 1 == miles_record.len() {
-            break;
+    let days: [i32; 2] = miles_record.iter().fold([0, -1], |acc, &current_value| {
+        let current_total = acc[0];
+        let previous_value = acc[1];
+
+        if previous_value != -1 && previous_value < current_value {
+            return [current_total + 1, current_value];
         }
-        if miles_record[i] < miles_record[i + 1] {
-            days += 1
-        }
-        i += 1;
-    }
-    return days;
+        return [current_total, current_value];
+    });
+
+    return days[0];
 }
 
 fn main() {

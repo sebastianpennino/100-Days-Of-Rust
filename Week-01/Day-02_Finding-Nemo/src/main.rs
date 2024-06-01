@@ -58,13 +58,11 @@ mod tests {
     #[test]
     fn text1() {
         assert_eq!(find_nemo("I am finding Nemo !"), "I found Nemo at 4!"); 
-        // fail
     }
 
     #[test]
     fn text2() {
         assert_eq!(find_nemo("Nemo is me"), "I found Nemo at 1!")
-        // fail
     }
     #[test]
     fn text3() {
@@ -79,7 +77,6 @@ mod tests {
     #[test]
     fn text5() {
         assert_eq!(find_nemo("Nemo N°1 and Nemo N°2 are different"), "I found Nemo at 1!")
-        // fail
     }
 
     #[test]

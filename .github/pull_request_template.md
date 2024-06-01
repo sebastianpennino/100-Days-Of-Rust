@@ -1,4 +1,4 @@
-### Ticket
+### Day(s)
 
 ### Description
 

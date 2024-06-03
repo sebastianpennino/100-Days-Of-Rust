@@ -1,4 +1,5 @@
 fn progress_days(miles_record: &[i32]) -> i32 {
+    // The minus one is a hacky way for me to skip the calculation on the first iteration
     let days: [i32; 2] = miles_record.iter().fold([0, -1], |acc, &current_value| {
         let current_total = acc[0];
         let previous_value = acc[1];

@@ -3,13 +3,13 @@ fn is_vegan(s: &str) -> bool {
 }
 
 fn check_grill(strings: &[&str]) -> [i32; 2] {
-    let result = strings.iter().fold([0, 0], |mut acc, &row| {
+    let result = strings.iter().fold([0, 0], |mut acc: [i32; 2], &row| {
         if is_vegan(row) {
             acc[0] += 1;
         } else {
             acc[1] += 1;
         }
-        acc
+        return acc;
     });
 
     return result;

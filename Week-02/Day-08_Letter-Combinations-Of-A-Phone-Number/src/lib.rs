@@ -84,6 +84,7 @@ pub fn vec_to_letters(digits_vec: Vec<i32>) -> Vec<String> {
     let rst = generate_permutations(found_letters);
 
     return rst;
+
 }
 
 #[cfg(test)]

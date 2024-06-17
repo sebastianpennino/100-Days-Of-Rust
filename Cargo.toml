@@ -12,5 +12,6 @@ members = [
     "Week-01/Day-06_Next-Prime",
     "Week-01/Day-07_Merge-Sorted-Array",
     # Made it to week 2 
-    "Week-02/Day-08_Letter-Combinations-Of-A-Phone-Number",
+    "Week-02/Day-08_Letter-Combinations-Of-A-Phone-Number", 
+    "Week-02/Day-09_Trapping-Rain-Water",
 ]

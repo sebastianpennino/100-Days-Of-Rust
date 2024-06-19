@@ -1,32 +1,19 @@
-pub fn merge_v4<'a>(m_arr: &'a mut [i32], m: usize, n_arr: &mut [i32], n: usize) -> &'a mut [i32] {
-    let mut m_idx = 0;
-    let mut n_idx = 0;
-    let mut count = 0;
+// Currently fails. Will find another way.
+pub fn merge_v4<'a>(main_array: &'a mut Vec<i32>, m: usize, aux_array: &Vec<i32>, n: usize) -> &'a mut Vec<i32> {
+    let mut last = m + n - 1;
+    let mut i = m as isize - 1;
+    let mut j = n as isize - 1;
 
-    m_arr.reverse();
-    n_arr.reverse();
-
-    while count < m + n {
-        let max: &i32;
-        let compare = [m_arr[m_idx], n_arr[n_idx]];
-
-        match compare[0].cmp(&compare[1]) {
-            std::cmp::Ordering::Greater | std::cmp::Ordering::Equal => {
-                max = &compare[0];
-                m_idx = m_idx + 1;
-            }
-            std::cmp::Ordering::Less => {
-                max = &compare[1];
-                n_idx = n_idx + 1;
-            }
+    while j >= 0 {
+        if i >= 0 && main_array[i as usize] > aux_array[j as usize] {
+            main_array[last] = main_array[i as usize];
+            i -= 1;
+        } else {
+            main_array[last] = aux_array[j as usize];
+            j -= 1;
         }
-        m_arr[count] = *max;
-        count += 1;
+        last -= 1;
     }
 
-    m_arr.reverse();
-
-    println!("{:?}", m_arr);
-
-    return m_arr;
+    return main_array;
 }

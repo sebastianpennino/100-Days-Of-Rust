@@ -1,31 +1,19 @@
-pub fn merge_v2<'a>(main_array: &'a mut [i32], m: usize, aux_array: &[i32], n: usize) -> &'a mut [i32] {
-    let mut i = m - 1;
-    let mut j = n - 1;
-    let mut pos = m + n;
-
-    while pos > 0 {
-        println!("loop {}", pos);
-        let mut bigger: &i32 = &main_array[i];
-        // println!("comparing main {} vs aux {} ", main_array[i], aux_array[j]);
-        println!("comparing {} <= {}", main_array[i], aux_array[j]);
-        if main_array[i] <= aux_array[j] {
-            bigger = &aux_array[j];
-            println!("bigger is aux > {}", bigger);
-            if j > 0 {
-                j -= 1;
-            }
-        } else if i > 0 {
-            println!("bigger is main < {}", bigger);
-            i -= 1;
-        } else {
-            println!("else, bigger is main {}", bigger);
-        }
-
-        main_array[pos - 1] = *bigger;
-        pos -= 1;
+/**
+ * I don't think I'm following the exercise instructions with this method.
+ * I'm creating a vector with the two arrays/slices, and then sorting them.
+ *
+ * I think the intention of the excersise is to manuall merge/sort the two
+ * already sorted arrays.
+ */
+pub fn merge_v2<'a>(main_array: &'a mut [i32], aux_array: &[i32], n: usize) -> &'a [i32] {
+    let len = main_array.len();
+    let all_but_last_n: &mut [i32] = &mut main_array[..len - n];
+    let mut merged = [all_but_last_n, aux_array].concat();
+    merged.sort();
+    let mut i: usize = 0;
+    while i < main_array.len() {
+        main_array[i] = merged[i];
+        i += 1;
     }
-
-    println!("{:?}", main_array);
-
     return main_array;
 }

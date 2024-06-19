@@ -58,3 +58,7 @@ pub fn trap_water_v1(height_map: Vec<i16>) -> i16 {
 
     return accumulated_water;
 }
+
+
+// MODIFY THIS TO GET A MAP OF WATER.
+// ON THE TEST WE CHECK IT AND THEN SUM, AND CHECK THE SUM!

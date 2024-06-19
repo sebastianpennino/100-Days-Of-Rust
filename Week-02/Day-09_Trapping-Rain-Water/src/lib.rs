@@ -13,7 +13,7 @@ mod tests {
 
     #[test]
     fn water_1() {
-        let height_map: Vec<i16> = vec![0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
+        let height_map: Vec<i16> = vec![0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1, 0];
         let output = trap_water_v1(height_map);
         assert_eq!(output, 6);
     }
@@ -34,14 +34,21 @@ mod tests {
 
     #[test]
     fn water_4() {
-        let height_map: Vec<i16> = vec![0, 0, 4, 0, 0, 5, 0, 1];
+        let height_map: Vec<i16> = vec![0, 0, 4, 0, 0, 5, 0, 1, 0];
         let output = trap_water_v2(height_map);
         assert_eq!(output, 9);
     }
 
     #[test]
     fn water_5() {
-        let height_map: Vec<i16> = vec![0, 4, 3, 0, 1, 0, 2, 0, 1];
+        let height_map: Vec<i16> = vec![0, 4, 3, 0, 1, 0, 3, 0, 1, 0];
+        let output = trap_water_v2(height_map);
+        assert_eq!(output, 9);
+    }
+
+    #[test]
+    fn water_6() {
+        let height_map: Vec<i16> = vec![0, 4, 3, 0, 1, 0, 2, 0, 1, 0];
         let output = trap_water_v2(height_map);
         assert_eq!(output, 6);
     }

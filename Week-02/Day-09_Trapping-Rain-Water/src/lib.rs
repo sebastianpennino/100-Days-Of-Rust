@@ -14,21 +14,21 @@ mod tests {
     #[test]
     fn water_1() {
         let height_map: Vec<i16> = vec![0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1, 0];
-        let output = trap_water_v1(height_map);
+        let output = trap_water_v2(height_map);
         assert_eq!(output, 6);
     }
 
     #[test]
     fn water_2() {
         let height_map: Vec<i16> = vec![4, 2, 0, 3, 2, 5];
-        let output = trap_water_v1(height_map);
+        let output = trap_water_v2(height_map);
         assert_eq!(output, 9);
     }
 
     #[test]
     fn water_3() {
         let height_map: Vec<i16> = vec![0, 0, 4, 0, 0, 5, 0, 5];
-        let output = trap_water_v1(height_map);
+        let output = trap_water_v2(height_map);
         assert_eq!(output, 13);
     }
 

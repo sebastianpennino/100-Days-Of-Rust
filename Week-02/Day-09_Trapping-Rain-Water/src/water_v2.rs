@@ -1,5 +1,5 @@
-use crate::common_stuff::get_slice;
 use crate::common_stuff::find_next_same_or_higher;
+use crate::common_stuff::get_slice;
 
 fn _trim_zeros(arr: &Vec<i16>) -> Vec<i16> {
     // Find the first non-zero index
@@ -18,8 +18,9 @@ fn calculate_water_arr(arr: &Vec<i16>, start: usize, end: usize) -> Vec<i16> {
     let left_side = arr[start];
     let right_side = arr[end];
     let water_level = std::cmp::min(left_side, right_side);
+    let adjusted_end = end - 1;
 
-    match get_slice(arr, start, end) {
+    match get_slice(arr, start, adjusted_end) {
         Some(sliced) => {
             let water = sliced
                 .iter()
@@ -41,7 +42,6 @@ fn find_water(height_map: &Vec<i16>) -> Vec<i16> {
     let mut pos = 0;
     let mut current_max_elevation: i16 = 0;
     let mut accumulated_water: Vec<i16> = vec![];
-    let mut skip_next = false;
 
     // crawl the height_map
     while pos <= height_map.len() - 1 {
@@ -58,7 +58,7 @@ fn find_water(height_map: &Vec<i16>) -> Vec<i16> {
                     if (move_to_pos - pos) > 1 {
                         next_pos = move_to_pos;
                         let found_water = calculate_water_arr(&height_map, pos, move_to_pos);
-                        println!("Found_water: {:?}",found_water);
+                        println!("Found_water: {:?}", found_water);
 
                         let mut new_vec = accumulated_water.clone();
 
@@ -66,34 +66,20 @@ fn find_water(height_map: &Vec<i16>) -> Vec<i16> {
                         // add the two arr
 
                         accumulated_water = new_vec.clone();
-                        skip_next = true;
                     } else {
                         println!("No gap -> adding a zero [0]");
-                        if skip_next {
-                            skip_next = false;
-                        } else {
-                            accumulated_water.push(0);
-                        }
-                        
+                        accumulated_water.push(0);
                     }
                 }
                 None => {
                     // println!("Warn: No same or higher value found after index: {}", pos);
                     println!("No higher value found -> adding a zero [0]");
                     current_max_elevation = -1; // TODO: Detect a peak!?
-                    if skip_next {
-                        skip_next = false;
-                    } else {
-                        accumulated_water.push(0);
-                    }
+                    accumulated_water.push(0);
                 }
             }
         } else {
-            if skip_next {
-                skip_next = false;
-            } else {
-                accumulated_water.push(0);
-            }
+            accumulated_water.push(0);
             println!("Not higher that current_max_elevation");
             println!("Not entered -> adding a zero [0]");
         }
@@ -108,12 +94,10 @@ fn find_water(height_map: &Vec<i16>) -> Vec<i16> {
 * saving the "found water" in a vec, then adding the two
 */
 pub fn trap_water_v2(height_map: Vec<i16>) -> i16 {
-    
     // let mut trimmed_map = trim_zeros(&height_map);
     let mut trimmed_map = height_map.clone();
     println!("input____ {:?} len {}", trimmed_map, trimmed_map.len());
     println!("--");
-    
 
     let water_ltr = find_water(&trimmed_map);
     println!("--");
@@ -121,16 +105,12 @@ pub fn trap_water_v2(height_map: Vec<i16>) -> i16 {
     println!("--");
     trimmed_map.reverse();
 
-    
-
     let mut water_rtl = find_water(&trimmed_map);
     // println!("water_rtl {:?} len {}", water_rtl, water_rtl.len());
     water_rtl.reverse();
     println!("--");
     println!("water_rtl {:?} len {}", water_rtl, water_rtl.len());
     println!("--");
-
-    
 
     let water_map_sum: i16 = water_ltr
         .into_iter()

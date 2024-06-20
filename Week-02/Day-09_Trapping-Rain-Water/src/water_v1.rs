@@ -1,12 +1,32 @@
 pub fn trap_water_v1(height_map: Vec<i16>) -> i16 {
-    let accumulated_water: i16 = 0;
+    let mut left_max: i16 = 0;
+    let mut right_max: i16 = 0;
 
-    let mut pos = 0;
-    while pos < height_map.len() {
-        let next_pos = pos + 1;
+    let left_map = height_map
+        .iter()
+        .rev()
+        .map(|&x| {
+            left_max = left_max.max(x);
+            return left_max;
+        })
+        .collect::<Vec<i16>>();
 
-        pos = next_pos;
-    }
+    println!("left_map: {:?}", left_map);
 
-    return accumulated_water;
+    let right_map = height_map
+        .iter()
+        .map(|&x| {
+            right_max = right_max.max(x);
+            return right_max;
+        })
+        .collect::<Vec<i16>>();
+
+    println!("right_map: {:?}", right_map);
+
+    let accumulated_water = height_map
+        .iter()
+        .zip(left_map.iter().zip(right_map.iter()))
+        .map(|(&current, (&left_max, &right_max))| return left_max.min(right_max) - current);
+
+    return accumulated_water.sum();
 }

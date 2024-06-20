@@ -23,3 +23,19 @@ pub fn find_next_same_or_higher(arr: &Vec<i16>, current_index: usize) -> Option<
     }
     return None;
 }
+
+/**
+ * Removes zeroes at the beginning and the end of a vec
+ */
+pub fn trim_zeros(arr: &Vec<i16>) -> Vec<i16> {
+    // Find the first non-zero index
+    let start = arr.iter().position(|&x| x != 0).unwrap_or(arr.len());
+    // Find the last non-zero index
+    let end = arr.iter().rposition(|&x| x != 0).unwrap_or(0);
+    // If start is greater than end, return an empty Vec
+    if start > end {
+        return Vec::new();
+    }
+    // Return the slice from start to end inclusive
+    arr[start..=end].to_vec()
+}

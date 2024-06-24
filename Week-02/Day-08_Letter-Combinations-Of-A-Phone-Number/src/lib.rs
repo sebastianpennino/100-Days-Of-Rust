@@ -32,7 +32,7 @@ pub fn str_to_digits(str: &str) -> Vec<u8> {
 //
 // I started with a js function in mind, then tried to convert it to Rust
 //
-// function generatePermutations(selectedKeypadGroups) {
+// function cartesianProduct(selectedKeypadGroups) {
 //     let result = [""]; // need a string there so the first for gets a loop
 //
 //     for (const groupOfLetters of selectedKeypadGroups) {
@@ -49,7 +49,7 @@ pub fn str_to_digits(str: &str) -> Vec<u8> {
 //
 //     return result;
 // }
-pub fn generate_permutations(vec_of_letters: Vec<&Vec<char>>) -> Vec<String> {
+pub fn cartesian_product(vec_of_letters: Vec<&Vec<char>>) -> Vec<String> {
     let mut result = vec![String::from("")]; // Start with a vector containing an empty string
 
     for group in vec_of_letters {
@@ -66,7 +66,7 @@ pub fn generate_permutations(vec_of_letters: Vec<&Vec<char>>) -> Vec<String> {
     return result;
 }
 
-pub fn vec_to_letters(digits_vec: Vec<u8>) -> Vec<String> {
+pub fn vec_to_product(digits_vec: Vec<u8>) -> Vec<String> {
     let keypad = generate_key_pad();
 
     let mut found_letters: Vec<&Vec<char>> = [].to_vec();
@@ -78,9 +78,9 @@ pub fn vec_to_letters(digits_vec: Vec<u8>) -> Vec<String> {
         }
     }
 
-    let rst = generate_permutations(found_letters);
+    let product = cartesian_product(found_letters);
 
-    return rst;
+    return product;
 }
 
 #[cfg(test)]
@@ -93,9 +93,9 @@ mod tests {
         let expected_vec = vec![7];
         let digits_vec = str_to_digits(digits_str);
         assert_eq!(digits_vec, expected_vec);
-        let permutations = vec_to_letters(digits_vec);
-        let expected_permutations: Vec<String> = vec!["p".to_string(), "q".to_string(), "r".to_string(), "s".to_string()];
-        assert_eq!(permutations, expected_permutations);
+        let product = vec_to_product(digits_vec);
+        let expected_result: Vec<String> = vec!["p".to_string(), "q".to_string(), "r".to_string(), "s".to_string()];
+        assert_eq!(product, expected_result);
     }
 
     #[test]
@@ -104,9 +104,9 @@ mod tests {
         let expected_vec = vec![2, 3];
         let digits_vec = str_to_digits(digits_str);
         assert_eq!(digits_vec, expected_vec);
-        let permutations = vec_to_letters(digits_vec);
-        let expected_permutations = vec!["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"];
-        assert_eq!(permutations, expected_permutations);
+        let product = vec_to_product(digits_vec);
+        let expected_result = vec!["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"];
+        assert_eq!(product, expected_result);
     }
 
     #[test]
@@ -115,13 +115,13 @@ mod tests {
         let expected_vec = vec![4, 7, 6];
         let digits_vec = str_to_digits(digits_str);
         assert_eq!(digits_vec, expected_vec);
-        let permutations = vec_to_letters(digits_vec);
-        let expected_permutations = vec![
+        let product = vec_to_product(digits_vec);
+        let expected_product = vec![
             "gpm", "gpn", "gpo", "gqm", "gqn", "gqo", "grm", "grn", "gro", "gsm", "gsn", "gso", // starts with G
             "hpm", "hpn", "hpo", "hqm", "hqn", "hqo", "hrm", "hrn", "hro", "hsm", "hsn", "hso", // starts with H
             "ipm", "ipn", "ipo", "iqm", "iqn", "iqo", "irm", "irn", "iro", "ism", "isn", "iso", // starts with I
         ];
-        assert_eq!(permutations, expected_permutations);
+        assert_eq!(product, expected_product);
     }
 
     #[test]
@@ -130,8 +130,8 @@ mod tests {
         let expected_vec = vec![];
         let digits_vec = str_to_digits(digits_str);
         assert_eq!(digits_vec, expected_vec);
-        let permutations = vec_to_letters(digits_vec);
-        let expected_permutations = vec![""];
-        assert_eq!(permutations, expected_permutations);
+        let product = vec_to_product(digits_vec);
+        let expected_result = vec![""];
+        assert_eq!(product, expected_result);
     }
 }

@@ -1,25 +1,39 @@
-pub fn trap_water_v1(height_map: Vec<i16>) -> i16 {
-    let mut left_max: i16 = 0;
-    let mut right_max: i16 = 0;
 
-    let left_map = height_map
-        .iter()
-        .rev()
-        .map(|&x| {
-            left_max = left_max.max(x);
-            return left_max;
-        })
-        .collect::<Vec<i16>>();
+pub fn calc_left_map(height_map: &Vec<i16>) -> Vec<i16> {
+    let mut left_map: Vec<i16> = height_map.iter().rev().enumerate().map(|(idx, &val)| {
+        let map_slice = &height_map[idx..];
+        let found_val = map_slice.iter().find(|&&v| v > val);
+        match found_val {
+            Some(&v) => v,
+            None => val,
+        }
+    }).collect();
+    // reverse before return
+    left_map.reverse();
+
+    return left_map;
+}
+
+pub fn calc_right_map(height_map: &Vec<i16>) -> Vec<i16> {
+    let right_map: Vec<i16> = height_map.iter().enumerate().map(|(idx, &val)| {
+        let map_slice = &height_map[idx..];
+        let found_val = map_slice.iter().find(|&&v| v > val);
+        match found_val {
+            Some(&v) => v,
+            None => val,
+        }
+    }).collect();
+
+    return right_map;
+}
+
+pub fn trap_water_v1(height_map: Vec<i16>) -> i16 {
+
+    let left_map: Vec<i16> = calc_left_map(&height_map);
 
     println!("left_map: {:?}", left_map);
 
-    let right_map = height_map
-        .iter()
-        .map(|&x| {
-            right_max = right_max.max(x);
-            return right_max;
-        })
-        .collect::<Vec<i16>>();
+    let right_map = calc_right_map(&height_map);
 
     println!("right_map: {:?}", right_map);
 
